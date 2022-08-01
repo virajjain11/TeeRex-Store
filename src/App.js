@@ -1,7 +1,10 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+    <div className="lg:w-4/5 m-auto">
+      {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
+      <Navbar />
     </div>
   );
 }
