@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/Navbar/Navbar";
 import Filter from "./components/Navbar/Product/Filter";
 import Productcard from "./components/Navbar/Product/Productcard";
+import { fetchProduct } from "./store/ProductSlice";
 
 function App() {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        " https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json"
-      );
-      const newData = await res.json();
-      setData(newData);
-      // log
-    };
-    fetchData();
-    console.log(data);
-  }, []);
-  return (
-    <div className="lg:w-4/5 m-auto">
-      {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
-      <Navbar />
-      <div className="flex justify-around">
-        <Filter />
 
-        <Productcard />
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, [dispatch]);
+
+  const products = useSelector((state) => state.product.store);
+  console.log("global", products);
+  return (
+    <div className="lg:w-11/12 m-auto">
+      <Navbar />
+      <div className="flex ">
+        <Filter />
+        <div className="flex flex-wrap">
+          {products?.length > 0 &&
+            products.map((product) => (
+              <Productcard key={product.id} product={product} />
+            ))}
+        </div>
       </div>
     </div>
   );
