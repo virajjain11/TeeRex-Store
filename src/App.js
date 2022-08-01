@@ -14,12 +14,11 @@ function App() {
   }, [dispatch]);
 
   const products = useSelector((state) => state.product.store);
-  console.log("global", products);
   return (
     <div className="lg:w-11/12 m-auto">
       <Navbar />
       <div className="flex ">
-        <Filter />
+        <Filter products={products} />
         <div className="flex flex-wrap">
           {products?.length > 0 &&
             products.map((product) => (

@@ -14,7 +14,14 @@ const ProductSlice = createSlice({
     store: {},
     cart: {},
   },
-  reducers: {},
+  reducers: {
+    addColorFilter: (state, { payload }) => {
+      // console.log(payload);
+      // console.log(state.store);
+      // state.cart = [payload];
+      // console.log();
+    },
+  },
   extraReducers: {
     [fetchProduct.fulfilled]: (state, { payload }) => {
       return { ...state, store: payload };
@@ -22,4 +29,5 @@ const ProductSlice = createSlice({
   },
 });
 
+export const { addColorFilter } = ProductSlice.actions;
 export default ProductSlice.reducer;
