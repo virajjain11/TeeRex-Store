@@ -12,14 +12,19 @@ const ProductSlice = createSlice({
   name: "product",
   initialState: {
     store: {},
+    filteredProduc: {},
     cart: {},
   },
   reducers: {
     addColorFilter: (state, { payload }) => {
-      // console.log(payload);
+      // console.log(payload); //{color: Array(3), gender: Array(1), dressType: Array(1)}
+      // state.cart = "aaaa";
       // console.log(state.store);
       // state.cart = [payload];
-      // console.log();
+      // let newFilter = state.store.map((ele, idx) =>
+      //   payload.color.includes(ele.color)
+      // );
+      // console.log(newFilter);
     },
   },
   extraReducers: {

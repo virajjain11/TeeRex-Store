@@ -3,29 +3,71 @@ import { useDispatch, useSelector } from "react-redux";
 import { addColorFilter } from "../../../store/ProductSlice";
 
 const Filter = ({ products }) => {
-  const [color, setColor] = useState([]);
+  const initialFilter = {
+    color: [],
+    gender: [],
+    dressType: [],
+  };
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
-  // const store = useSelector((state) => console.log(state));
+  const [filterItems, setFilterItems] = useState(initialFilter);
+
+  useEffect(() => {
+    const fetchAsync = async () => {
+      const res = await fetch(
+        "https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json"
+      );
+      const newRes = await res.json();
+      setData(newRes);
+    };
+    fetchAsync();
+  }, []);
+
+  const globalStore = useSelector((state) => state.product);
   let colorsArr = [];
   const gender = ["Male", "Female"];
-  const type = ["Hoodie", "Basic", "Polo"];
+  const productType = ["Hoodie", "Basic", "Polo"];
   products?.length > 0 &&
     products?.map((product) => colorsArr.push(product.color));
   const uniqueColor = [...new Set(colorsArr)];
 
+  function FilterHere() {
+    let { store } = globalStore;
+    if (data.length > 0) {
+      // console.log(data);
+      let newFilter = data.filter((obj) => {
+        let valid = filterItems.color.includes(obj.color);
+        // filterItems.gender.includes(obj.gender) &&
+        // filterItems.productType.includes(obj.type);
+        if (valid) return obj;
+      });
+      console.log(newFilter);
+    }
+  }
   useEffect(() => {
-    // dispatch(addColorFilter(color));
-    console.log(color);
-  }, [color]);
+    // FilterHere();
+    console.log(filterItems);
+    // dispatch(addColorFilter(filterItems));
+    // console.log(filterItems);
+  }, [filterItems, dispatch]);
 
   const handleSubmit = (e) => {
+    let filterType = e.target.name;
     let tempColor = e.target.value;
-    if (color.includes(tempColor)) {
+    if (filterItems[filterType].includes(tempColor)) {
       console.log("eeee", tempColor, "is present");
-      setColor((prev) => prev.filter((val) => val !== tempColor));
+      setFilterItems((prev) => ({
+        ...prev,
+        [filterType]: prev[filterType].filter((val) => val !== tempColor),
+      }));
+      // setColor((prev) => prev.filter((val) => val !== tempColor));
     } else {
       console.log(tempColor, "is not present");
-      setColor((prev) => [...prev, tempColor]);
+      // setColor((prev) => [...prev, tempColor]);
+      setFilterItems((prev) => ({
+        ...prev,
+        [filterType]: [...prev[filterType], tempColor],
+      }));
     }
   };
 
@@ -60,16 +102,54 @@ const Filter = ({ products }) => {
           <li key={index}>
             <input
               type="checkbox"
-              id={`custom-checkbox-${index}`}
-              name={color}
+              id={`checkbox-${index}`}
+              name="color"
               value={color}
               onClick={handleSubmit}
             />
             <label
-              htmlFor={`custom-checkbox-${index}`}
+              htmlFor={`checkbox-${index}`}
               className="pl-2 tracking-wide font-medium"
             >
               {color}
+            </label>
+          </li>
+        );
+      })}
+      {productType?.map((category, index) => {
+        return (
+          <li key={index}>
+            <input
+              type="checkbox"
+              id={`checkbox-${index}`}
+              name="dressType"
+              value={category}
+              onClick={handleSubmit}
+            />
+            <label
+              htmlFor={`checkbox-${index}`}
+              className="pl-2 tracking-wide font-medium"
+            >
+              {category}
+            </label>
+          </li>
+        );
+      })}
+      {gender?.map((eachGender, index) => {
+        return (
+          <li key={index}>
+            <input
+              type="checkbox"
+              id={`checkbox-${index}`}
+              name="gender"
+              value={eachGender}
+              onClick={handleSubmit}
+            />
+            <label
+              htmlFor={`checkbox-${index}`}
+              className="pl-2 tracking-wide font-medium"
+            >
+              {eachGender}
             </label>
           </li>
         );
