@@ -4,10 +4,8 @@ import Cart from "./components/Cart/Cart";
 import Navbar from "./components/Navbar/Navbar";
 import Product from "./components/Products/Product";
 import { fetchProduct } from "./store/ProductSlice";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 function App() {
-  const [data, setData] = useState([]);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
@@ -15,11 +13,11 @@ function App() {
 
   return (
     <div className="lg:w-11/12 m-auto">
+      <Navbar />
       <Routes>
-        {/* <Route /> */}
-        <Navbar />
-        <Product />
-        <Cart />
+        <Route path="/" element={<Navigate to="/product" />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );
