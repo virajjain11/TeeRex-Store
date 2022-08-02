@@ -45,7 +45,7 @@ const Filter = ({ products }) => {
     }
   }
   useEffect(() => {
-    // FilterHere();
+    FilterHere();
     console.log(filterItems);
     // dispatch(addColorFilter(filterItems));
     // console.log(filterItems);
