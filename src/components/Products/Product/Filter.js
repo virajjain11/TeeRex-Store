@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addColorFilter } from "../../../store/ProductSlice";
 
-const Filter = ({ products }) => {
+const Filter = () => {
   const initialFilter = {
-    color: [],
-    gender: [],
-    dressType: [],
+    Colour: [],
+    Gender: [],
+    Type: [],
   };
   const globalStore = useSelector((state) => state.product);
   const [data, setData] = useState([]);
@@ -23,18 +23,22 @@ const Filter = ({ products }) => {
     };
     fetchAsync();
   }, []);
+  //
+  const fil = {
+    Colour: [],
+    Gender: ["Male", "Female"],
+    Type: ["Hoodie", "Basic", "Polo"],
+    price: [],
+  };
 
   let colorsArr = [];
-  const gender = ["Male", "Female"];
-  const productType = ["Hoodie", "Basic", "Polo"];
-  products?.length > 0 &&
-    products?.map((product) => colorsArr.push(product.color));
-  const uniqueColor = [...new Set(colorsArr)];
+  data?.length > 0 && data.map((product) => colorsArr.push(product.color));
+  fil.Colour = [...new Set(colorsArr)];
 
   function FilterHere() {
     if (data.length > 0) {
       let newFilter = data.filter((obj) => {
-        let valid = filterItems.color.includes(obj.color);
+        let valid = filterItems.Colour.includes(obj.color); // currently only filtering color and not any other filters
         // filterItems.gender.includes(obj.gender) &&
         // filterItems.productType.includes(obj.type);
         if (valid) return obj;
@@ -70,88 +74,40 @@ const Filter = ({ products }) => {
   };
 
   return (
-    <div className="w-2/4">
-      {/* <h2 className="text-lg font-bold">Color</h2>
-      <div>
-        {uniqueColor?.map((color) => (
-          <h1 key={color} id={color} onClick={handleSubmit}>
-            {color}
-          </h1>
-        ))}
-      </div>
-      <div>
-        <input type={"checkbox"} checked={false} />
-      </div>
-      <h2 className="text-lg font-bold">Gender</h2>
-      <div>
-        {gender?.map((el) => (
-          <h1>{el}</h1>
-        ))}
-      </div>
-      <h2 className="text-lg font-bold">Type</h2>
-      <div>
-        {type?.map((el) => (
-          <h1>{el}</h1>
-        ))}
-      </div> */}
-      Filter
-      {uniqueColor?.map((color, index) => {
-        return (
-          <li key={index}>
-            <input
-              type="checkbox"
-              id={`checkbox-${index}`}
-              name="color"
-              value={color}
-              onClick={handleSubmit}
-            />
-            <label
-              htmlFor={`checkbox-${index}`}
-              className="pl-2 tracking-wide font-medium"
-            >
-              {color}
-            </label>
-          </li>
-        );
-      })}
-      {productType?.map((category, index) => {
-        return (
-          <li key={index}>
-            <input
-              type="checkbox"
-              id={`checkbox-${index}`}
-              name="dressType"
-              value={category}
-              onClick={handleSubmit}
-            />
-            <label
-              htmlFor={`checkbox-${index}`}
-              className="pl-2 tracking-wide font-medium"
-            >
-              {category}
-            </label>
-          </li>
-        );
-      })}
-      {gender?.map((eachGender, index) => {
-        return (
-          <li key={index}>
-            <input
-              type="checkbox"
-              id={`checkbox-${index}`}
-              name="gender"
-              value={eachGender}
-              onClick={handleSubmit}
-            />
-            <label
-              htmlFor={`checkbox-${index}`}
-              className="pl-2 tracking-wide font-medium"
-            >
-              {eachGender}
-            </label>
-          </li>
-        );
-      })}
+    <div className="w-full shadow-lg pl-6 ">
+      {data.length > 0 &&
+        Object.entries(fil).map((filterHeading, idx) => {
+          return (
+            <>
+              <h1 className="text-xl font-medium pt-3 pb-2" key={idx}>
+                {filterHeading[0]}
+              </h1>
+              {filterHeading[1].map((filter, index) => {
+                return (
+                  <>
+                    <li className="list-none pb-1 pl-1" key={`list-${index}`}>
+                      <input
+                        key={`input-${index}`}
+                        type="checkbox"
+                        id={`checkbox-${filter}-${index}`}
+                        name={filterHeading[0]}
+                        value={filter}
+                        onClick={handleSubmit}
+                      />
+                      <label
+                        key={`label-${index}`}
+                        htmlFor={`checkbox-${filter}-${index}`}
+                        className="pl-3  pb-1tracking-wide font-medium"
+                      >
+                        {filter}
+                      </label>
+                    </li>
+                  </>
+                );
+              })}
+            </>
+          );
+        })}
     </div>
   );
 };

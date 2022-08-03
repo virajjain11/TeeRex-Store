@@ -6,10 +6,10 @@ const Product = () => {
   const products = useSelector((state) => state.product.store);
   return (
     <>
-      <div className="flex ">
-        <div className="w-2/4">
-          <Filter className="" products={products} />
-        </div>
+      <div className="flex justify-center ml-6 ">
+        {/* <div className=""> */}
+        <Filter />
+        {/* </div> */}
         <div className="flex flex-wrap">
           {products?.length > 0 &&
             products.map((product) => (
