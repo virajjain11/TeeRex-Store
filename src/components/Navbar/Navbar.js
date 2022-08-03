@@ -1,10 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   // const handlePush = () => {
   //   navigate("/");
   // };
+  const { cart } = useSelector((state) => state.product);
   return (
     <div className="flex justify-between p-4 bg-slate-300 items-center">
       <h1
@@ -22,7 +24,7 @@ const Navbar = () => {
             Product
           </Link>
           <Link className="pl-2" to="cart">
-            Cart
+            Cart {cart.length > 0 && cart.length}
           </Link>
         </nav>
       </div>

@@ -8,6 +8,7 @@ const Filter = ({ products }) => {
     gender: [],
     dressType: [],
   };
+  const globalStore = useSelector((state) => state.product);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const [filterItems, setFilterItems] = useState(initialFilter);
@@ -23,7 +24,6 @@ const Filter = ({ products }) => {
     fetchAsync();
   }, []);
 
-  const globalStore = useSelector((state) => state.product);
   let colorsArr = [];
   const gender = ["Male", "Female"];
   const productType = ["Hoodie", "Basic", "Polo"];
@@ -32,9 +32,7 @@ const Filter = ({ products }) => {
   const uniqueColor = [...new Set(colorsArr)];
 
   function FilterHere() {
-    let { store } = globalStore;
     if (data.length > 0) {
-      // console.log(data);
       let newFilter = data.filter((obj) => {
         let valid = filterItems.color.includes(obj.color);
         // filterItems.gender.includes(obj.gender) &&

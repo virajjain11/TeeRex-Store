@@ -100,7 +100,7 @@ const ProductSlice = createSlice({
   },
   extraReducers: {
     [fetchProduct.fulfilled]: (state, { payload }) => {
-      // return { ...state, store: payload };
+      return { ...state, store: payload };
     },
   },
 });
