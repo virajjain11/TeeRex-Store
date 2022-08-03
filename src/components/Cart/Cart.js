@@ -7,8 +7,10 @@ const Cart = () => {
   console.log(cartItems);
   return (
     <div className="m-4">
-      <h1 className="text-xl font-medium tracking-wide">Shopping Cart</h1>
-      <div className="mt-10">
+      <h1 className="text-2xl font-medium tracking-wide sm:mt-8 mt-6 sm:ml-6 text-center sm:text-left">
+        Shopping Cart
+      </h1>
+      <div className="mt-10 sm:ml-12">
         {cartItems?.length > 0 &&
           cartItems.map((el, idx) => {
             return <CartCard key={idx} item={el} />;
