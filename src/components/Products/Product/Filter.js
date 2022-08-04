@@ -26,7 +26,7 @@ const Filter = () => {
   //
   const fil = {
     Colour: [],
-    Gender: ["Male", "Female"],
+    Gender: ["Men", "Women"],
     Type: ["Hoodie", "Basic", "Polo"],
     price: [],
   };
@@ -41,6 +41,13 @@ const Filter = () => {
         let valid = filterItems.Colour.includes(obj.color); // currently only filtering color and not any other filters
         // filterItems.gender.includes(obj.gender) &&
         // filterItems.productType.includes(obj.type);
+
+        const filtVal = Object.values(filterItems);
+        const objVal = Object.values(obj);
+        // console.log(filtVal[1].includes());
+        // console.log(objVal.includes());
+        // console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
+
         if (valid) return obj;
       });
       console.log(newFilter);
@@ -56,6 +63,7 @@ const Filter = () => {
   const handleSubmit = (e) => {
     let filterType = e.target.name;
     let tempColor = e.target.value;
+
     if (filterItems[filterType].includes(tempColor)) {
       console.log("eeee", tempColor, "is present");
       setFilterItems((prev) => ({
@@ -64,7 +72,7 @@ const Filter = () => {
       }));
       // setColor((prev) => prev.filter((val) => val !== tempColor));
     } else {
-      console.log(tempColor, "is not present");
+      console.log(tempColor, "is not present in", filterType);
       // setColor((prev) => [...prev, tempColor]);
       setFilterItems((prev) => ({
         ...prev,
@@ -74,7 +82,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="w-full shadow-lg pl-6 ">
+    <div className="md:w-[250px] w-[200px] shadow-lg pl-6 sm:block hidden ">
       {data.length > 0 &&
         Object.entries(fil).map((filterHeading, idx) => {
           return (
