@@ -19,7 +19,11 @@ const Navbar = () => {
         {/* <span className="pl-2">Products</span>
         <span className="pl-2">Cart</span> */}
         <nav>
-          <Link className="pl-2" to="product">
+          <Link
+            className="pl-2"
+            to="product"
+            className="underline underline-offset-8	decoration-2"
+          >
             {" "}
             Product
           </Link>
