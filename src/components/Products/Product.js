@@ -6,8 +6,8 @@ const Product = () => {
   const products = useSelector((state) => state.product.store);
   return (
     <>
-      <div className="flex justify-center sm:ml-6 mb-10 ">
-        <div className="w-full sm:mr-6 md:mr-10 ">
+      <div className="flex justify-start sm:ml-6 mb-10 ">
+        <div className=" sm:mr-6 md:mr-10 ">
           <Filter />
         </div>
         <div className="flex sm:ml-4 flex-wrap">
