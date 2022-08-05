@@ -88,6 +88,7 @@ const ProductSlice = createSlice({
       //   payload.color.includes(ele.color)
       // );
       // console.log(newFilter);
+      state.store = payload;
     },
     removeItemFromCart: (state, { payload }) => {
       state.cart = payload;

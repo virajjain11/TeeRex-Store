@@ -8,7 +8,7 @@ const Filter = () => {
     Gender: [],
     Type: [],
   };
-  const globalStore = useSelector((state) => state.product);
+  // const globalStore = useSelector((state) => state.product);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const [filterItems, setFilterItems] = useState(initialFilter);
@@ -20,11 +20,12 @@ const Filter = () => {
       );
       const newRes = await res.json();
       setData(newRes);
+      dispatch(addColorFilter(newRes));
     };
     fetchAsync();
   }, []);
-  //
-  const fil = {
+
+  const filters = {
     Colour: [],
     Gender: ["Men", "Women"],
     Type: ["Hoodie", "Basic", "Polo"],
@@ -33,31 +34,56 @@ const Filter = () => {
 
   let colorsArr = [];
   data?.length > 0 && data.map((product) => colorsArr.push(product.color));
-  fil.Colour = [...new Set(colorsArr)];
+  filters.Colour = [...new Set(colorsArr)];
 
   function FilterHere() {
+    let filterGender;
+    let filterType;
+    let filterColour;
+
     if (data.length > 0) {
-      let newFilter = data.filter((obj) => {
-        let valid = filterItems.Colour.includes(obj.color); // currently only filtering color and not any other filters
-        // filterItems.gender.includes(obj.gender) &&
-        // filterItems.productType.includes(obj.type);
+      if (filterItems.Colour.length > 0) {
+        filterColour = data.filter((obj) => {
+          let valid = filterItems.Colour.includes(obj.color); // currently only filtering color and not any other filters
+          // filterItems.gender.includes(obj.gender) &&
+          // filterItems.productType.includes(obj.type);
 
-        const filtVal = Object.values(filterItems);
-        const objVal = Object.values(obj);
-        // console.log(filtVal[1].includes());
-        // console.log(objVal.includes());
-        // console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
+          // const filtVal = Object.values(filterItems);
+          // const objVal = Object.values(obj);
+          // console.log(filtVal[1].includes());
+          // console.log(objVal.includes());
+          // console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
+          if (valid) return obj;
+        });
+      } else {
+        filterColour = data;
+      }
+      if (filterItems.Gender.length > 0) {
+        filterGender = filterColour.filter((obj) => {
+          let valid = filterItems.Gender.includes(obj.gender);
+          if (valid) return obj;
+        });
+      } else {
+        filterGender = filterColour;
+        console.log("gender is empty", filterGender);
+      }
+      if (filterItems.Type.length > 0) {
+        filterType = filterGender.filter((obj) => {
+          let valid = filterItems.Type.includes(obj.type);
+          if (valid) return obj;
+        });
+      } else {
+        //no Types
+        filterType = filterGender;
+      }
 
-        if (valid) return obj;
-      });
-      console.log(newFilter);
+      dispatch(addColorFilter(filterType));
     }
   }
+
   useEffect(() => {
     FilterHere();
-    console.log(filterItems);
     // dispatch(addColorFilter(filterItems));
-    // console.log(filterItems);
   }, [filterItems, dispatch]);
 
   const handleSubmit = (e) => {
@@ -84,7 +110,7 @@ const Filter = () => {
   return (
     <div className="md:w-[250px] w-[200px] shadow-lg pl-6 sm:block hidden ">
       {data.length > 0 &&
-        Object.entries(fil).map((filterHeading, idx) => {
+        Object.entries(filters).map((filterHeading, idx) => {
           return (
             <>
               <h1 className="text-xl font-medium pt-3 pb-2" key={idx}>
