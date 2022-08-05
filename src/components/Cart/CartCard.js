@@ -19,7 +19,7 @@ const CartCard = ({ item }) => {
         id={item.id}
         className="flex justify-around content-center md:space-x-2 sm:justify-start sm:mx-0 max-w-[450px] sm:max-w-[600px]"
       >
-        <div className=" max-w-[90px] sm:max-w-[150px] flex content-center justify-center">
+        <div className=" max-w-[90px] max-h-[120px] sm:max-w-[150px] flex content-center justify-center">
           <img src={item.imageURL} alt="img" />
         </div>
         <div className="p-2  flex flex-col content-center justify-center font-semibold ">
