@@ -74,6 +74,7 @@ export const fetchProduct = createAsyncThunk("product/fetch", async () => {
 const ProductSlice = createSlice({
   name: "product",
   initialState: {
+    referenceStore: {},
     store: {},
     filteredProduc: {},
     cart: tmpData,
@@ -101,7 +102,7 @@ const ProductSlice = createSlice({
   },
   extraReducers: {
     [fetchProduct.fulfilled]: (state, { payload }) => {
-      return { ...state, store: payload };
+      return { ...state, store: payload, referenceStore: payload };
     },
   },
 });
