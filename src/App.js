@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "./components/Cart/Cart";
 import Navbar from "./components/Navbar/Navbar";
-import Product from "./components/Products/Product";
+import ProductModal from "./components/Products/ProductModal";
 import { fetchProduct } from "./store/ProductSlice";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="*" element={<Navigate to="/product" />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product" element={<ProductModal />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
@@ -25,13 +25,3 @@ function App() {
 }
 
 export default App;
-
-//search any item
-// for (let k in obj) {
-//   if (obj[k] === "test1") {
-//       return true;
-//   }
-// }
-
-// var theObj = { foo: "bar" };
-// var hasVal = Object.values(theObj).includes("bar");
