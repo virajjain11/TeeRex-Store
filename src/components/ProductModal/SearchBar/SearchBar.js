@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addColorFilter } from "../../store/ProductSlice";
-import Filter from "./Product/Filter";
-import Productcard from "./Product/Productcard";
+import { addColorFilter } from "../../../store/ProductSlice";
 
-const ProductModal = () => {
+const SearchBar = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
-  let globalStore = useSelector((state) => state.product);
-  const { referenceStore } = globalStore;
-  const { store: products } = globalStore;
+  const { referenceStore } = useSelector((state) => state.product);
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
@@ -40,6 +36,7 @@ const ProductModal = () => {
   const handleKey = (e) => {
     if (e.charCode === 13) submitSearch();
   };
+
   return (
     <>
       <div className=" lg:ml-[40%] sm:mr-[20%] mx-auto w-[300px] sm:w-[500px] mt-8">
@@ -56,20 +53,8 @@ const ProductModal = () => {
           Search
         </label>
       </div>
-
-      <div className="flex justify-start sm:ml-6 mb-10  mt-10">
-        <div className=" sm:mr-6 md:mr-10 ">
-          <Filter />
-        </div>
-        <div className="flex sm:ml-4 flex-wrap">
-          {products?.length > 0 &&
-            products.map((product) => (
-              <Productcard key={product.id} product={product} />
-            ))}
-        </div>
-      </div>
     </>
   );
 };
 
-export default ProductModal;
+export default SearchBar;

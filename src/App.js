@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "./components/Cart/Cart";
 import Navbar from "./components/Navbar/Navbar";
-import ProductModal from "./components/Products/ProductModal";
+import ProductModal from "./components/ProductModal/ProductModal";
 import { fetchProduct } from "./store/ProductSlice";
 import { Routes, Route, Navigate } from "react-router-dom";
 

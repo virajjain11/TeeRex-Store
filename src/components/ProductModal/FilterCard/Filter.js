@@ -8,7 +8,6 @@ const Filter = () => {
     Gender: [],
     Type: [],
   };
-  // const globalStore = useSelector((state) => state.product);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const [filterItems, setFilterItems] = useState(initialFilter);
@@ -43,34 +42,26 @@ const Filter = () => {
 
     if (data.length > 0) {
       if (filterItems.Colour.length > 0) {
-        filterColour = data.filter((obj) => {
-          let valid = filterItems.Colour.includes(obj.color); // currently only filtering color and not any other filters
-          // filterItems.gender.includes(obj.gender) &&
-          // filterItems.productType.includes(obj.type);
-
-          // const filtVal = Object.values(filterItems);
-          // const objVal = Object.values(obj);
-          // console.log(filtVal[1].includes());
-          // console.log(objVal.includes());
-          // console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
-          if (valid) return obj;
+        filterColour = data.filter((eachProduct) => {
+          let valid = filterItems.Colour.includes(eachProduct.color); // currently only filtering color and not any other filters
+          if (valid) return eachProduct;
         });
       } else {
         filterColour = data;
       }
       if (filterItems.Gender.length > 0) {
-        filterGender = filterColour.filter((obj) => {
-          let valid = filterItems.Gender.includes(obj.gender);
-          if (valid) return obj;
+        filterGender = filterColour.filter((product) => {
+          let valid = filterItems.Gender.includes(product.gender);
+          if (valid) return product;
         });
       } else {
         filterGender = filterColour;
         console.log("gender is empty", filterGender);
       }
       if (filterItems.Type.length > 0) {
-        filterType = filterGender.filter((obj) => {
-          let valid = filterItems.Type.includes(obj.type);
-          if (valid) return obj;
+        filterType = filterGender.filter((product) => {
+          let valid = filterItems.Type.includes(product.type);
+          if (valid) return product;
         });
       } else {
         //no Types
@@ -88,21 +79,21 @@ const Filter = () => {
 
   const handleSubmit = (e) => {
     let filterType = e.target.name;
-    let tempColor = e.target.value;
+    let currentColorSelected = e.target.value;
 
-    if (filterItems[filterType].includes(tempColor)) {
-      console.log("eeee", tempColor, "is present");
+    if (filterItems[filterType].includes(currentColorSelected)) {
+      console.log("eeee", currentColorSelected, "is present");
       setFilterItems((prev) => ({
         ...prev,
-        [filterType]: prev[filterType].filter((val) => val !== tempColor),
+        [filterType]: prev[filterType].filter(
+          (val) => val !== currentColorSelected
+        ),
       }));
-      // setColor((prev) => prev.filter((val) => val !== tempColor));
     } else {
-      console.log(tempColor, "is not present in", filterType);
-      // setColor((prev) => [...prev, tempColor]);
+      console.log(currentColorSelected, "is not present in", filterType);
       setFilterItems((prev) => ({
         ...prev,
-        [filterType]: [...prev[filterType], tempColor],
+        [filterType]: [...prev[filterType], currentColorSelected],
       }));
     }
   };
@@ -147,3 +138,11 @@ const Filter = () => {
 };
 
 export default Filter;
+// filterItems.gender.includes(obj.gender) &&
+// filterItems.productType.includes(obj.type);
+
+// const filtVal = Object.values(filterItems);
+// const objVal = Object.values(obj);
+// console.log(filtVal[1].includes());
+// console.log(objVal.includes());
+// console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
