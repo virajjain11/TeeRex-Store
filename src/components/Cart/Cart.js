@@ -4,9 +4,8 @@ import CartCard from "./CartCard";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.product.cart);
-  console.log(cartItems);
   return (
-    <div className="m-4">
+    <div className="m-4 mt-[100px]">
       <h1 className="text-2xl font-medium tracking-wide sm:mt-8 mt-6 sm:ml-6 text-center sm:text-left">
         Shopping Cart
       </h1>

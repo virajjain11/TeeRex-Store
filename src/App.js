@@ -15,11 +15,13 @@ function App() {
   return (
     <div className="lg:w-11/12 m-auto">
       <Navbar />
-      <Routes>
-        <Route path="*" element={<Navigate to="/product" />} />
-        <Route path="/product" element={<ProductModal />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path="*" element={<Navigate to="/product" />} />
+          <Route path="/product" element={<ProductModal />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </div>
     </div>
   );
 }

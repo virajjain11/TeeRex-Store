@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeItemFromCart, addItemToStore } from "../../store/ProductSlice";
+import { filterItemFromCart } from "../../store/ProductSlice";
 
 const CartCard = ({ item }) => {
   const cart = useSelector((state) => state.product.cart);
@@ -10,8 +10,7 @@ const CartCard = ({ item }) => {
     const newCart = cart.filter((product) => product.id !== id);
     const itemRemoved = cart.filter((product) => product.id === id);
 
-    dispatch(removeItemFromCart(newCart));
-    // dispatch(addItemToStore(itemRemoved)); //need to add these product back to store
+    dispatch(filterItemFromCart(newCart));
   };
   return (
     <>

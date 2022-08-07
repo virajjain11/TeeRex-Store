@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addColorFilter } from "../../../store/ProductSlice";
 
-const Filter = () => {
+const FilterCard = () => {
   const initialFilter = {
     Colour: [],
     Gender: [],
@@ -17,9 +17,9 @@ const Filter = () => {
       const res = await fetch(
         "https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json"
       );
-      const newRes = await res.json();
-      setData(newRes);
-      dispatch(addColorFilter(newRes));
+      const newResData = await res.json();
+      setData(newResData);
+      dispatch(addColorFilter(newResData));
     };
     fetchAsync();
   }, []);
@@ -28,7 +28,7 @@ const Filter = () => {
     Colour: [],
     Gender: ["Men", "Women"],
     Type: ["Hoodie", "Basic", "Polo"],
-    price: [],
+    // price: [],
   };
 
   let colorsArr = [];
@@ -82,18 +82,18 @@ const Filter = () => {
     let currentColorSelected = e.target.value;
 
     if (filterItems[filterType].includes(currentColorSelected)) {
-      console.log("eeee", currentColorSelected, "is present");
-      setFilterItems((prev) => ({
-        ...prev,
-        [filterType]: prev[filterType].filter(
-          (val) => val !== currentColorSelected
+      // console.log("eeee", currentColorSelected, "is present");
+      setFilterItems((prevValue) => ({
+        ...prevValue,
+        [filterType]: prevValue[filterType].filter(
+          (eachFilteredValue) => eachFilteredValue !== currentColorSelected
         ),
       }));
     } else {
-      console.log(currentColorSelected, "is not present in", filterType);
-      setFilterItems((prev) => ({
-        ...prev,
-        [filterType]: [...prev[filterType], currentColorSelected],
+      // console.log(currentColorSelected, "is not present in", filterType);
+      setFilterItems((prevValue) => ({
+        ...prevValue,
+        [filterType]: [...prevValue[filterType], currentColorSelected],
       }));
     }
   };
@@ -137,12 +137,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
-// filterItems.gender.includes(obj.gender) &&
-// filterItems.productType.includes(obj.type);
-
-// const filtVal = Object.values(filterItems);
-// const objVal = Object.values(obj);
-// console.log(filtVal[1].includes());
-// console.log(objVal.includes());
-// console.log(objVal.includes(filtVal[0]) && objVal.includes(filtVal[1]));
+export default FilterCard;

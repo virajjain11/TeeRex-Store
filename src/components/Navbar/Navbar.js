@@ -3,21 +3,14 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
-  // const handlePush = () => {
-  //   navigate("/");
-  // };
+
   const { cart } = useSelector((state) => state.product);
   return (
-    <div className="flex justify-between p-4 bg-slate-300 items-center">
-      <h1
-        // onClick={handlePush}
-        className="text-xl font-semibold tracking-wider cursor-pointer"
-      >
+    <div className="flex justify-between p-4 bg-slate-300 items-center fixed top-0 sm:w-[90vw] w-[100vw] mx-auto">
+      <h1 className="text-xl font-semibold tracking-wider cursor-pointer">
         <Link to={"/"}>Tee Rex Store</Link>
       </h1>
-      <div className=" ">
-        {/* <span className="pl-2">Products</span>
-        <span className="pl-2">Cart</span> */}
+      <div>
         <nav>
           <Link
             className="pl-2"
