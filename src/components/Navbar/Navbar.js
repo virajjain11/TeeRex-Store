@@ -6,7 +6,7 @@ const Navbar = () => {
 
   const { cart } = useSelector((state) => state.product);
   return (
-    <div className="flex justify-between p-4 bg-slate-300 items-center fixed top-0 sm:w-[90vw] w-[100vw] mx-auto">
+    <div className="flex justify-between p-4 bg-slate-300 items-center sm:w-[90vw] w-[100vw] mx-auto">
       <h1 className="text-xl font-semibold tracking-wider cursor-pointer">
         <Link to={"/"}>Tee Rex Store</Link>
       </h1>
